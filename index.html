@@ -5,56 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhandara Kha Hai? Final Bhagwa with Search</title>
 <style>
- /* Unique wrapper for the card */
-  .nanoCardWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px; /* optional spacing */
-  }
+.nanoCardWrapper {
+  display: inline-block;
+  cursor: pointer;
+}
 
-  /* Card container */
-  .nanoCardBox {
-    width: 260px;
-    padding: 22px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #ff9933, #ff6600);
-    box-shadow: 0 0 16px rgba(255,102,0,0.7), 0 0 32px rgba(255,153,51,0.5);
-    color: #fff;
+.nanoCardBox {
+  background-color: #FF9933; /* Bhagwa color */
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid #e68a00;
+  transition: transform 0.2s;
+}
+.nanoCardBox:hover {
+  transform: scale(1.03);
+}
+
+.nanoCardName {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.nanoCardTitle {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.nanoCardContact div {
+  margin-top: 6px;
+}
+
+/* Popup styles (reuse previous popup CSS) */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.popup-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
     text-align: center;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  .nanoCardBox:hover {
-    transform: scale(1.06);
-    box-shadow: 0 0 28px rgba(255,102,0,0.9), 0 0 44px rgba(255,153,51,0.7);
-  }
-
-  /* Name */
-  .nanoCardName {
-    font-size: 1.6em;
-    font-weight: 700;
-    margin-bottom: 6px;
-    letter-spacing: 1px;
-  }
-
-  /* Title */
-  .nanoCardTitle {
-    font-size: 1em;
-    margin-bottom: 16px;
-    font-style: italic;
-  }
-
-  /* Contact info */
-  .nanoCardContact {
-    font-size: 0.92em;
-    line-height: 1.6em;
-  }
-
-  .nanoCardContact div {
-    margin: 4px 0;
-  }
+    position: relative;
+}
+.close-btn {
+    position: absolute;
+    top: 8px; right: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #FF9933;
+}
+.close-btn:hover { color: #e68a00; }
 /* Body & Fonts */
 body { font-family: Arial, sans-serif; background:#fff8f0; margin:0; padding:0; text-align:center; color:#4d2600; }
 
@@ -167,7 +175,21 @@ h1 { margin:20px 0; color:#FF6600; text-shadow:1px 1px 2px #aa3300; }
 </style>
 </head>
 <body>
+<script>
+function openNanoPopup() {
+  document.getElementById("nanoPopup").style.display = "block";
+}
+function closeNanoPopup() {
+  document.getElementById("nanoPopup").style.display = "none";
+}
 
+// Close popup when clicking outside
+window.onclick = function(event) {
+  if (event.target == document.getElementById("nanoPopup")) {
+    closeNanoPopup();
+  }
+}
+</script>
 <!-- Banner -->
 <img src="images/banner.jpg" alt="Bhandara Banner" class="banner">
 
@@ -270,17 +292,28 @@ function filterCards(){
 }
 </script>
 <div class="nanoCardWrapper">
+  <div class="nanoCardBox" onclick="openNanoPopup()">
+    <div class="nanoCardName">Add Your Bhandara</div>
+    <div class="nanoCardTitle">1. Mandir Name: </div>
+    <div class="nanoCardTitle">2. Mandir Name: </div>
+    <div class="nanoCardContact">
+      <div>✉️ hemant@example.com</div>
+    </div>
+  </div>
+</div>
+<div id="nanoPopup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closeNanoPopup()">&times;</span>
+    <!-- Duplicate the content inside popup -->
     <div class="nanoCardBox">
-      <div class="nanoCardName">Hemant Gavde</div>
-      <div class="nanoCardTitle">Web Developer</div>
+      <div class="nanoCardName">Add Your Bhandara</div>
+      <div class="nanoCardTitle">1. Mandir Name: </div>
+      <div class="nanoCardTitle">2. Mandir Name: </div>
       <div class="nanoCardContact">
-        <div>📞 123-456-7890</div>
         <div>✉️ hemant@example.com</div>
-        <div>🌐 www.example.com</div>
       </div>
     </div>
   </div>
-<a href="#" class="bhagwa-btn">Click Me</a>
-
+</div>
 </body>
 </html>
