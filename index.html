@@ -283,9 +283,8 @@ window.onclick = function(event) {
   <div class="card" onclick="openPopup(this)">
     <img src="images/bhandara1_1.jpg" class="main-img" alt="Shri Hanuman Mandir Bhandara">
     <h3>Shri Hanuman Mandir Bhandara</h3>
-    <p class="date">📅 Date: 25 Aug 2025</p>
-    <a class="btn" href="https://maps.google.com?q=Hanuman+Mandir" target="_blank">📍 Location</a>
-    <p>📞 Contact: +91 9876543210</p>
+    <p class="date" >📅 Date: 25 Aug 2025</p>
+    <a class="btn" href="https://maps.google.com?q=Hanuman+Mandir" target="_blank" >📍 Location</a>
     <a class="social-btn" href="https://instagram.com/hanumanmandir" target="_blank">Instagram</a>
     <img src="images/bhandara1_2.jpg" style="display:none;">
     <img src="images/bhandara1_3.jpg" style="display:none;">
@@ -319,7 +318,7 @@ function openPopup(card){
 
   document.getElementById('popupImg').src = gallery[currentIndex];
   document.getElementById('popupName').innerHTML = `<h3>${card.querySelector('h3').innerText}</h3>`;
-  document.getElementById('popupLocation').innerHTML = `📍 Location: ${card.querySelector('.btn').outerHTML}`;
+  document.getElementById('popupLocation').innerHTML = `${card.querySelector('.btn').outerHTML}`;
   document.getElementById('popupContact').innerHTML = card.querySelector('p').outerText;
   document.getElementById('popupSocial').innerHTML = card.querySelector('.social-btn').outerHTML;
 
