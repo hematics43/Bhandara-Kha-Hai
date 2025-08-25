@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhandara Kha Hai? Final Bhagwa with Search</title>
+<style>
+ /* Unique wrapper for the card */
+  .nanoCardWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px; /* optional spacing */
+  }
+
+  /* Card container */
+  .nanoCardBox {
+    width: 260px;
+    padding: 22px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ff9933, #ff6600);
+    box-shadow: 0 0 16px rgba(255,102,0,0.7), 0 0 32px rgba(255,153,51,0.5);
+    color: #fff;
+    text-align: center;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .nanoCardBox:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 28px rgba(255,102,0,0.9), 0 0 44px rgba(255,153,51,0.7);
+  }
+
+  /* Name */
+  .nanoCardName {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* Title */
+  .nanoCardTitle {
+    font-size: 1em;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  /* Contact info */
+  .nanoCardContact {
+    font-size: 0.92em;
+    line-height: 1.6em;
+  }
+
+  .nanoCardContact div {
+    margin: 4px 0;
+  }
+/* Body & Fonts */
+body { font-family: Arial, sans-serif; background:#fff8f0; margin:0; padding:0; text-align:center; color:#4d2600; }
+
+/* Banner */
+.banner { width:100%; max-height:250px; object-fit:cover; border-bottom:5px solid #FF9933; }
+
+/* Heading */
+h1 { margin:20px 0; color:#FF6600; text-shadow:1px 1px 2px #aa3300; }
+
+/* Search bar */
+#searchBar { padding:10px; width:90%; max-width:400px; font-size:16px; border:2px solid #FF9933; border-radius:8px; margin-bottom:20px; }
+
+/* Card container */
+.cards-container { padding:20px; display:flex; flex-wrap:wrap; justify-content:center; }
+
+/* Card styling */
+.card { background:#fff3e6; padding:15px; margin:15px; border-radius:10px; box-shadow:0 4px 12px rgba(255,153,51,0.3); width:250px; cursor:pointer; transition:0.3s; border:2px solid #FF9933; }
+.card:hover {transform:scale(1.05); box-shadow:0 6px 18px rgba(255,102,0,0.4);}
+.card img.main-img {width:100%; border-radius:8px; margin-bottom:10px;}
+
+/* Buttons */
+.btn { display:inline-block; background:#FF6600; color:white; padding:8px 12px; margin-top:8px; border-radius:5px; text-decoration:none; font-size:14px; font-weight:bold; border:2px solid #FF9933; }
+.btn:hover { background:#FF9933; color:#4d2600; }
+
+.social-btn { display:inline-block; background:#E1306C; color:white; padding:6px 10px; margin:5px 3px 0 3px; border-radius:5px; text-decoration:none; font-size:14px; font-weight:bold; }
+.social-btn:hover { background:#c1275b; }
+
+/* Popup overlay */
+.popup { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; flex-direction:column; }
+.popup-content { position:relative; background:#fff8f0; padding:15px; max-width:90%; border-radius:10px; text-align:center; box-shadow:0 0 15px rgba(255,102,0,0.5);}
+.popup-content img { max-width:100%; max-height:400px; border-radius:10px; }
+.close { position:absolute; top:10px; right:15px; font-size:28px; font-weight:bold; cursor:pointer; color:#FF6600; }
+.nav { position:absolute; top:50%; font-size:35px; color:#FF6600; cursor:pointer; user-select:none; transform:translateY(-50%); }
+.prev { left:10px; } .next { right:10px; }
+
+/* Thumbnails */
+.thumbnails { margin-top:10px; display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+.thumbnails img { width:60px; height:60px; object-fit:cover; border-radius:5px; cursor:pointer; border:2px solid transparent; transition:0.2s; }
+.thumbnails img.active { border:2px solid #FF6600; }
+
+/* Popup text */
+#popupName h3 { color:#FF6600; text-shadow:1px 1px 1px #aa3300; }
+#popupLocation a, #popupContact, #popupSocial a { color:#4d2600; font-weight:bold; text-decoration:none; }
+#popupLocation a:hover, #popupSocial a:hover { color:#FF6600; }
+ .bhandaraWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .bhandaraButton {
+    position: relative;
+    width: 250px;
+    padding: 15px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ff9933, #ff6600);
+    box-shadow: 0 0 12px rgba(255,102,0,0.7), 0 0 24px rgba(255,153,51,0.5);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .bhandaraButton:hover {
+    box-shadow: 0 0 20px rgba(255,102,0,0.9), 0 0 35px rgba(255,153,51,0.7);
+  }
+
+  .bhandaraForm {
+    display: none;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .bhandaraFormLabel {
+    font-size: 0.85em;
+    margin: 5px 0 2px 0;
+  }
+
+  .bhandaraFormInput {
+    width: 100%;
+    padding: 5px 6px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 8px;
+    outline: none;
+  }
+
+  .bhandaraButton.active .bhandaraForm {
+    display: block;
+  }
+  .bhagwa-btn {
+    display: inline-block;
+    background-color: #FF9933; /* Bhagwa/Saffron color */
+    color: white;
+    padding: 6px 14px;       /* small size */
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #e68a00;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.bhagwa-btn:hover {
+    background-color: #e68a00;
+    transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<img src="images/banner.jpg" alt="Bhandara Banner" class="banner">
+
+<h1>🍲 Bhandara Kha Hai?</h1>
+
+<!-- Search -->
+<input type="text" id="searchBar" placeholder="Search by name, location, contact..." onkeyup="filterCards()">
+
+<div class="cards-container" id="cardsContainer">
+
+  <!-- Card 1 -->
+  <div class="card" onclick="openPopup(this)">
+    <img src="images/bhandara1_1.jpg" class="main-img" alt="Shri Hanuman Mandir Bhandara">
+    <h3>Shri Hanuman Mandir Bhandara</h3>
+    <a class="btn" href="https://maps.google.com?q=Hanuman+Mandir" target="_blank">📍 Location</a>
+    <p>📞 Contact: +91 9876543210</p>
+    <a class="social-btn" href="https://instagram.com/hanumanmandir" target="_blank">Instagram</a>
+    <img src="images/bhandara1_2.jpg" style="display:none;">
+    <img src="images/bhandara1_3.jpg" style="display:none;">
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <span class="nav prev" onclick="changeImage(-1)">&#10094;</span>
+    <img id="popupImg" src="">
+    <span class="nav next" onclick="changeImage(1)">&#10095;</span>
+    <div id="popupName"></div>
+    <p id="popupLocation"></p>
+    <p id="popupContact"></p>
+    <div id="popupSocial"></div>
+    <div class="thumbnails" id="popupThumbs"></div>
+  </div>
+</div>
+
+<script>
+let gallery = [];
+let currentIndex = 0;
+
+// Popup functions
+function openPopup(card){
+  const imgs = card.querySelectorAll('img');
+  gallery = Array.from(imgs).map(img => img.src);
+  currentIndex = 0;
+
+  document.getElementById('popupImg').src = gallery[currentIndex];
+  document.getElementById('popupName').innerHTML = `<h3>${card.querySelector('h3').innerText}</h3>`;
+  document.getElementById('popupLocation').innerHTML = `📍 Location: ${card.querySelector('.btn').outerHTML}`;
+  document.getElementById('popupContact').innerHTML = card.querySelector('p').outerText;
+  document.getElementById('popupSocial').innerHTML = card.querySelector('.social-btn').outerHTML;
+
+  const thumbsDiv = document.getElementById('popupThumbs');
+  thumbsDiv.innerHTML = '';
+  gallery.forEach((src,i)=>{
+    const thumb = document.createElement('img');
+    thumb.src = src;
+    thumb.className = i===0?'active':'';
+    thumb.onclick = ()=>{ currentIndex=i; updatePopup(); };
+    thumbsDiv.appendChild(thumb);
+  });
+
+  document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup(){ document.getElementById('popup').style.display='none'; }
+
+function changeImage(dir){
+  currentIndex += dir;
+  if(currentIndex<0) currentIndex=gallery.length-1;
+  if(currentIndex>=gallery.length) currentIndex=0;
+  updatePopup();
+}
+
+function updatePopup(){
+  document.getElementById('popupImg').src = gallery[currentIndex];
+  const thumbs = document.querySelectorAll('#popupThumbs img');
+  thumbs.forEach((t,i)=> t.className = i===currentIndex?'active':'');
+}
+
+// Swipe support
+let startX = 0;
+document.getElementById('popupImg').addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; });
+document.getElementById('popupImg').addEventListener('touchend', e=>{
+  let endX = e.changedTouches[0].clientX;
+  if(startX - endX > 50) changeImage(1);
+  else if(endX - startX > 50) changeImage(-1);
+});
+
+// Search function
+function filterCards(){
+  const input = document.getElementById('searchBar').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if(text.includes(input)){ card.style.display = ''; }
+    else{ card.style.display = 'none'; }
+  });
+}
+</script>
+<div class="nanoCardWrapper">
+    <div class="nanoCardBox">
+      <div class="nanoCardName">Hemant Gavde</div>
+      <div class="nanoCardTitle">Web Developer</div>
+      <div class="nanoCardContact">
+        <div>📞 123-456-7890</div>
+        <div>✉️ hemant@example.com</div>
+        <div>🌐 www.example.com</div>
+      </div>
+    </div>
+  </div>
+<a href="#" class="bhagwa-btn">Click Me</a>
+
+</body>
+</html>
