@@ -3,8 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhandara Kha Hai? Final Bhagwa with Search</title>
+<title>भंडारा कहा है?</title>
 <style>
+  /* Card Button */
+.nanoCardWrapper { display: inline-block; cursor: pointer; }
+.nanoCardBox {
+  background-color: #FF9933;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 6px;
+  border: 1px solid #e68a00;
+  transition: transform 0.2s;
+  text-align: center;
+}
+.nanoCardBox:hover { transform: scale(1.03); }
+.nanoCardName { font-weight: bold; margin-bottom: 6px; }
+.nanoCardTitle { font-size: 14px; margin-bottom: 4px; }
+.nanoCardContact div { margin-top: 6px; }
+
+/* Terms Button */
+.termsBtnWrapper { display: inline-block; cursor: pointer; margin-left: 10px; }
+.termsBtnBox {
+  background-color: #FF9933;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid #e68a00;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.termsBtnBox:hover { transform: scale(1.03); }
+.termsBtnName { font-weight: bold; }
+
+/* Popup Shared */
+.popup, .termsPopup { 
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; top: 0; 
+  width: 100%; height: 100%; 
+  background-color: rgba(0,0,0,0.5); 
+}
+.popup-content, .termsPopupContent {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 320px;
+  text-align: center;
+  position: relative;
+}
+.close-btn, .termsCloseBtn {
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #FF9933;
+}
+.close-btn:hover, .termsCloseBtn:hover { color: #e68a00; }
+  .date { 
+  font-weight:bold; 
+  color:#FF6600; 
+  margin:5px 0 10px 0; 
+  font-size:14px;
+}
+.popup .date { 
+  font-weight:bold; 
+  color:#FF6600; 
+  margin-top:10px; 
+  font-size:16px; 
+}
 .nanoCardWrapper {
   display: inline-block;
   cursor: pointer;
@@ -13,10 +82,10 @@
 .nanoCardBox {
   background-color: #FF9933; /* Bhagwa color */
   color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
-  border: 1px solid #e68a00;
-  transition: transform 0.2s;
+  padding: 10px 10px;
+  border-radius: 8px;
+  border: 3px solid #e68a00;
+  transition: transform 1s;
 }
 .nanoCardBox:hover {
   transform: scale(1.03);
@@ -28,8 +97,8 @@
 }
 
 .nanoCardTitle {
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .nanoCardContact div {
@@ -87,8 +156,8 @@ h1 { margin:20px 0; color:#FF6600; text-shadow:1px 1px 2px #aa3300; }
 .btn { display:inline-block; background:#FF6600; color:white; padding:8px 12px; margin-top:8px; border-radius:5px; text-decoration:none; font-size:14px; font-weight:bold; border:2px solid #FF9933; }
 .btn:hover { background:#FF9933; color:#4d2600; }
 
-.social-btn { display:inline-block; background:#E1306C; color:white; padding:6px 10px; margin:5px 3px 0 3px; border-radius:5px; text-decoration:none; font-size:14px; font-weight:bold; }
-.social-btn:hover { background:#c1275b; }
+.social-btn { display:inline-block; background:#ec0909; color:white; padding:6px 10px; margin:5px 3px 0 3px; border-radius:5px; text-decoration:none; font-size:14px; font-weight:bold; }
+.social-btn:hover { background:#5a0303; }
 
 /* Popup overlay */
 .popup { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; flex-direction:column; }
@@ -175,6 +244,7 @@ h1 { margin:20px 0; color:#FF6600; text-shadow:1px 1px 2px #aa3300; }
 </style>
 </head>
 <body>
+  
 <script>
 function openNanoPopup() {
   document.getElementById("nanoPopup").style.display = "block";
@@ -193,24 +263,34 @@ window.onclick = function(event) {
 <!-- Banner -->
 <img src="images/banner.jpg" alt="Bhandara Banner" class="banner">
 
-<h1>🍲 Bhandara Kha Hai?</h1>
+<h1>🍲 भंडारा कहा है?</h1>
 
 <!-- Search -->
 <input type="text" id="searchBar" placeholder="Search by name, location, contact..." onkeyup="filterCards()">
-
+<div class="termsBtnWrapper">
+  <div class="termsBtnBox" onclick="openTermsPopup()">
+    <div class="termsBtnName">Terms & Conditions</div>
+  </div> 
+</div></br>
+<div class="nanoCardWrapper">
+  <div class="nanoCardBox" onclick="openNanoPopup()">
+    <div class="nanoCardName">भंडारा जोड़े</div>
+  </div>
+</div>
 <div class="cards-container" id="cardsContainer">
 
   <!-- Card 1 -->
   <div class="card" onclick="openPopup(this)">
     <img src="images/bhandara1_1.jpg" class="main-img" alt="Shri Hanuman Mandir Bhandara">
     <h3>Shri Hanuman Mandir Bhandara</h3>
+    <p class="date">📅 Date: 25 Aug 2025</p>
     <a class="btn" href="https://maps.google.com?q=Hanuman+Mandir" target="_blank">📍 Location</a>
     <p>📞 Contact: +91 9876543210</p>
     <a class="social-btn" href="https://instagram.com/hanumanmandir" target="_blank">Instagram</a>
     <img src="images/bhandara1_2.jpg" style="display:none;">
     <img src="images/bhandara1_3.jpg" style="display:none;">
-  </div>
 </div>
+
 
 <!-- Popup -->
 <div class="popup" id="popup">
@@ -291,29 +371,58 @@ function filterCards(){
   });
 }
 </script>
-<div class="nanoCardWrapper">
-  <div class="nanoCardBox" onclick="openNanoPopup()">
-    <div class="nanoCardName">Add Your Bhandara</div>
-    <div class="nanoCardTitle">1. Mandir Name: </div>
-    <div class="nanoCardTitle">2. Mandir Name: </div>
-    <div class="nanoCardContact">
-      <div>✉️ hemant@example.com</div>
-    </div>
-  </div>
-</div>
+<script>
+/* Card Popup */
+function openNanoPopup() { document.getElementById("nanoPopup").style.display = "block"; }
+function closeNanoPopup() { document.getElementById("nanoPopup").style.display = "none"; }
+
+/* Terms Popup */
+function openTermsPopup() { document.getElementById("termsPopup").style.display = "block"; }
+function closeTermsPopup() { document.getElementById("termsPopup").style.display = "none"; }
+
+/* Close popups when clicking outside */
+window.onclick = function(event) {
+  if (event.target == document.getElementById("nanoPopup")) closeNanoPopup();
+  if (event.target == document.getElementById("termsPopup")) closeTermsPopup();
+}
+</script>
+
 <div id="nanoPopup" class="popup">
   <div class="popup-content">
     <span class="close-btn" onclick="closeNanoPopup()">&times;</span>
     <!-- Duplicate the content inside popup -->
     <div class="nanoCardBox">
-      <div class="nanoCardName">Add Your Bhandara</div>
-      <div class="nanoCardTitle">1. Mandir Name: </div>
-      <div class="nanoCardTitle">2. Mandir Name: </div>
-      <div class="nanoCardContact">
-        <div>✉️ hemant@example.com</div>
+      <div class="nanoCardName">अपना भंडारा जोड़ें!</div>
+      <div class="nanoCardTitle">१. मंदिर का नाम:</div>
+      <div class="nanoCardTitle">२. भंडारा दिनांक:</div>
+      <div class="nanoCardTitle">३. स्थान:</div>
+      <div class="nanoCardTitle">४. गूगल लोकेशन लिंक:</div>
+      <div class="nanoCardTitle">५. मंदिर का Instagram Id: </div>
+      <div class="nanoCardTitle">६. ३-४ मंदिर या परिसर के फोटोज </div>
+
+
+    <div class="nanoCardContact">
+        <button><div><a href="https://www.instagram.com/beecodeworld/">यहाँ भेजे</a></div></button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+<!-- Terms Popup (Unique IDs & Classes) -->
+<!-- Terms Popup (Updated Hindi Content) -->
+<div id="termsPopup" class="termsPopup">
+  <div class="termsPopupContent">
+    <span class="termsCloseBtn" onclick="closeTermsPopup()">&times;</span>
+    <h3>नियम और शर्तें</h3>
+    <p>१. यह सेवा केवल धार्मिक कार्यक्रमों और भंडारा संबंधित जानकारी के लिए है।</p>
+    <p>२. उपयोगकर्ता को अपने द्वारा दी गई सभी जानकारी सही और सत्यापन योग्य होनी चाहिए।</p>
+    <p>३. किसी भी प्रकार की गलत या अप्रमाणिक जानकारी देने पर सेवा प्रदाता जिम्मेदार नहीं होगा।</p>
+    <p>४. भंडारा आयोजन या मंदिर से संबंधित किसी भी निर्णय के लिए केवल आधिकारिक सूत्रों पर भरोसा करें।</p>
+    <p>५. नई जानकारी या अपडेट जोड़ने में कभी-कभी समय लग सकता है। कृपया धैर्य रखें।</p>
+  </div>
+</div>
+
 </body>
 </html>
